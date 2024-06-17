@@ -1,0 +1,12 @@
+<Context>
+    <Resource name="jdbc/attendance_db"
+              auth="Container"
+              type="javax.sql.DataSource"
+              maxTotal="20"
+              maxIdle="10"
+              maxWaitMillis="-1"
+              username="yourUsername"
+              password="yourPassword"
+              driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+              url="jdbc:sqlserver://localhost:1433;databaseName=attendance_db"/>
+</Context>
