@@ -95,6 +95,60 @@
         <url-pattern>/deleteUser</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>adminverify</servlet-name>
+        <servlet-class>org.example.Controller.AdminVerifyServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>adminverify</servlet-name>
+        <url-pattern>/adminverify</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addCourse</servlet-name>
+        <servlet-class>org.example.Controller.AddCourseServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addCourse</servlet-name>
+        <url-pattern>/addCourse</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>removeCourse</servlet-name>
+        <servlet-class>org.example.Controller.RemoveCourseServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>removeCourse</servlet-name>
+        <url-pattern>/removeCourse</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>assignCourse</servlet-name>
+        <servlet-class>org.example.Controller.AssignCourseServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>assignCourse</servlet-name>
+        <url-pattern>/assignCourse</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>unassignCourse</servlet-name>
+        <servlet-class>org.example.Controller.UnassignCourseServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>unassignCourse</servlet-name>
+        <url-pattern>/unassignCourse</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>viewClasses</servlet-name>
+        <servlet-class>org.example.Controller.ViewClassesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>viewClasses</servlet-name>
+        <url-pattern>/viewClasses</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>

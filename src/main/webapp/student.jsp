@@ -7,11 +7,12 @@
     // Simulating the student data
     User obj = (User) request.getSession().getAttribute("user");
     String username = obj.getUsername();
+    String course = (String) request.getSession().getAttribute("course");
     int userId = (Integer) obj.getUser_id();
 
     // Fetch attendance records
     AttendanceDAO attendanceDAO = new AttendanceDAO();
-    List<Attendance> attendanceList = attendanceDAO.getAttendanceByUserId(userId);
+    List<Attendance> attendanceList = attendanceDAO.getAttendanceByUserId(userId, course);
 %>
 
 <!DOCTYPE html>
@@ -42,6 +43,11 @@
         .header .student-name {
             font-size: 1.8em;
             margin-bottom: 10px;
+        }
+
+        .header .course-name {
+            font-size: 1.2em;
+            margin-top: 10px;
         }
 
         .back-btn {
@@ -136,6 +142,7 @@
 <body>
 <div class="header">
     <div class="student-name">Attendance History for <%= username %></div>
+    <div class="course-name">Course: <%= course %></div>
     <div class="back-btn">
         <a href="login.jsp">
             <i class="fas fa-arrow-left"></i>

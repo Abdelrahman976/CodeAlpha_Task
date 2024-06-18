@@ -1,9 +1,22 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="org.example.DAO.UserDAO, org.example.DAO.CourseDAO" %>
+<%@ page import="java.util.List" %>
+<%@ page import="org.example.Model.User" %>
+<%@ page import="org.example.Model.Course" %>
+<%
+    UserDAO userDAO = new UserDAO();
+    CourseDAO courseDAO = new CourseDAO();
+    List<User> users = userDAO.getAllUsers();
+    List<Course> courses = courseDAO.getAllCourses();
+    request.setAttribute("users", users);
+    request.setAttribute("courses", courses);
+%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Add User</title>
+    <title>Assign Course</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <style>
@@ -22,7 +35,7 @@
             height: 100vh;
         }
         /* Form Styling */
-        form {
+        .form-container {
             background-color: #ffffff;
             padding: 30px;
             border-radius: 10px;
@@ -37,7 +50,7 @@
             font-weight: bold;
             color: #333;
         }
-        input, select {
+        select {
             width: calc(100% - 20px); /* Adjusted width to accommodate padding */
             padding: 10px;
             margin-top: 5px;
@@ -46,7 +59,7 @@
             font-size: 16px;
             transition: border-color 0.3s ease;
         }
-        input:focus, select:focus {
+        select:focus {
             outline: none;
             border-color: #007BFF;
         }
@@ -103,27 +116,29 @@
     <a href="adminDashboard.jsp" aria-label="Back"><i class="fas fa-arrow-left"></i></a>
 </div>
 
-<form action="addUser" method="post">
-    <h2>Add User</h2>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br>
-    <label for="role">Role:</label>
-    <select id="role" name="role" required>
-        <option value="student">Student</option>
-        <option value="professor">Professor</option>
-        <option value="admin">Admin</option>
-    </select><br>
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required><br>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br>
-    <button type="submit">Add User</button>
-    <% if (request.getParameter("error") != null) { %>
-    <p class="message"><%= request.getParameter("error") %></p>
-    <% } %>
-
-</form>
+<div class="form-container">
+    <h2>Assign Course</h2>
+    <form action="assignCourse" method="post">
+        <label for="userId">Select User:</label>
+        <select id="userId" name="userId">
+            <c:forEach var="user" items="${users}">
+                <option value="${user.user_id}">${user.username}</option>
+            </c:forEach>
+        </select><br><br>
+        <label for="courseId">Select Course:</label>
+        <select id="courseId" name="courseId">
+            <c:forEach var="course" items="${courses}">
+                <option value="${course.cid}">${course.courseName}</option>
+            </c:forEach>
+        </select><br><br>
+        <button type="submit">Assign Course</button>
+        <% if (request.getAttribute("message") != null) { %>
+        <p class="error"><%= request.getAttribute("message") %></p>
+        <% } %>
+        <% if (request.getAttribute("error") != null) { %>
+        <p class="error"><%= request.getAttribute("error") %></p>
+        <% } %>
+    </form>
+</div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package org.example.Controller;
 
 import org.example.DAO.AttendanceDAO;
+import org.example.DAO.CourseDAO;
 import org.example.DAO.UserDAO;
 import org.example.Model.Attendance;
 import org.example.Model.User;
@@ -18,9 +19,11 @@ import java.util.List;
 
 public class AttendanceServlet extends HttpServlet {
     private AttendanceDAO attendanceDAO;
+    private CourseDAO courseDAO;
 
     public void init() {
         attendanceDAO = new AttendanceDAO();
+        courseDAO = new CourseDAO();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -34,7 +37,8 @@ public class AttendanceServlet extends HttpServlet {
                 String userId = parameterName.substring(parameterName.indexOf("_") + 1);
                 Date date = new Date(System.currentTimeMillis());
                 String status="Present";
-                attendanceDAO.takeAttendance(Integer.parseInt(userId), date, status);
+                String cid= courseDAO.getCidByCname(request.getParameter("course"));
+                attendanceDAO.takeAttendance(Integer.parseInt(userId), date, status,cid);
             }
 
         }
@@ -43,7 +47,7 @@ public class AttendanceServlet extends HttpServlet {
         UserDAO temp= new UserDAO();
         List<User> students = null;
         try {
-            students = temp.getStudents(obj.getCourse());
+            students = temp.getStudents(request.getParameter("course"));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -52,10 +56,11 @@ public class AttendanceServlet extends HttpServlet {
             if (request.getParameter("attendance_" + userId) == null) {
                 Date date = new Date(System.currentTimeMillis());
                 String status="Absent";
-                attendanceDAO.takeAttendance(Integer.parseInt(userId), date, status);
+                String cid= courseDAO.getCidByCname(request.getParameter("course"));
+                attendanceDAO.takeAttendance(Integer.parseInt(userId), date, status,cid);
             }
         }
-        List<Date> dates = attendanceDAO.getAttendanceDates(obj.getCourse());
+        List<Date> dates = attendanceDAO.getAttendanceDates(request.getParameter("course"));
         request.setAttribute("dates", dates);
 
         // Forward to ProfDashboard.jsp

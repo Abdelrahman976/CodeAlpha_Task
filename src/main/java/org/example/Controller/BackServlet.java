@@ -21,7 +21,7 @@ public class BackServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         User obj = (User)request.getSession().getAttribute("user");
-        List<Date> dates = attendanceDAO.getAttendanceDates(obj.getCourse());
+        List<Date> dates = attendanceDAO.getAttendanceDates(request.getParameter("course"));
         String error="";
         request.setAttribute("dates", dates);
         request.setAttribute("error", error);

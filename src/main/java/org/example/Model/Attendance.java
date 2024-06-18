@@ -6,6 +6,7 @@ public class Attendance {
     private int userId;
     private Date date;
     private String status;
+    private String cid;
 
     public Attendance() {
     }
@@ -41,4 +42,8 @@ public class Attendance {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public String getCid() {return cid;}
+
+    public void setCid(String cid) {this.cid = cid;}
 }

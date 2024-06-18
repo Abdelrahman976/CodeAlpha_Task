@@ -27,7 +27,7 @@ public class ViewAttendanceServlet extends HttpServlet {
 
         // Store selected date in request attribute to forward to next JSP
         request.setAttribute("selectedDate", selectedDate);
-        List<AttendanceRecord> attendanceRecords = attendanceDAO.getAttendanceByDate(((User) request.getSession().getAttribute("user")).getCourse(), Date.valueOf(selectedDate));
+        List<AttendanceRecord> attendanceRecords = attendanceDAO.getAttendanceByDate(request.getParameter("course"), Date.valueOf(selectedDate));
         request.setAttribute("attendance", attendanceRecords);
         // Forward to attendanceView.jsp
         RequestDispatcher dispatcher = request.getRequestDispatcher("/ViewAttendance.jsp");

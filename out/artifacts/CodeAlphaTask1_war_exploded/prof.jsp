@@ -12,11 +12,11 @@
     String professor = obj.getName();
     List<User> students = null;
     try {
-        students = temp.getStudents(obj.getCourse());
+        students = temp.getStudents(session.getAttribute("course").toString());
     } catch (Exception e) {
         throw new RuntimeException(e);
     }
-    String courseName = obj.getCourse();
+    String courseName = session.getAttribute("course").toString();
 
     // Getting the current date
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -108,6 +108,7 @@
 
 <div class="container">
     <form action="markAttendance" method="post">
+        <input type="hidden" name="course" value="<%= courseName %>">
         <table>
             <tr>
                 <th>Student Name</th>

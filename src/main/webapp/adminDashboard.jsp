@@ -56,10 +56,15 @@
         .delete-btn {
             background-color: #dc3545;
         }
+        .view-btn {
+            background-color: #007bff;
+            margin-top: 10px;
+        }
         .back-btn {
             position: absolute;
-            top: 20px; /* Adjust top position */
-            left: 20px; /* Adjust left position */
+            top: 20px;
+            left: 20px;
+            color: #007bff;
         }
 
         .back-btn a {
@@ -95,6 +100,11 @@
     <div class="btn-container">
         <a href="admin.jsp" class="btn add-btn">Add User</a>
         <a href="deleteUser.jsp" class="btn delete-btn">Delete User</a>
+        <a href="addCourse.jsp" class="btn add-btn">Add Course</a>
+        <a href="removeCourse.jsp" class="btn delete-btn">Remove Course</a>
+        <a href="assignCourseForm.jsp" class="btn add-btn">Assign Course</a>
+        <a href="unassignCourse.jsp" class="btn delete-btn">Unassign Course</a>
+        <a href="viewClasses.jsp" class="btn view-btn">View Classes</a> <!-- Modified button -->
     </div>
 </div>
 </body>

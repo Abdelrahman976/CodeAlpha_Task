@@ -28,21 +28,19 @@ public class UserDAO {
                 user.setRole(resultSet.getString("role"));
                 user.setName(resultSet.getString("name"));
                 user.setEmail(resultSet.getString("email"));
-                user.setCourse(resultSet.getString("course"));
             }
         }
         return user;
     }
-    public void addUser(String username, String password, String email, String role, String name, String course) {
+    public void addUser(String username, String password, String email, String role, String name) {
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String sql = "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO users VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, username);
             statement.setString(2, password);
             statement.setString(3, role);
             statement.setString(4, name);
             statement.setString(5, email);
-            statement.setString(6, course);
 
             // Execute the insert statement
             int rowsInserted = statement.executeUpdate();
@@ -75,9 +73,13 @@ public class UserDAO {
     public List<User> getStudents(String courseName) throws Exception {
         List<User> Students = new java.util.ArrayList<>(List.of());
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String sql = "SELECT * FROM users WHERE course = ? AND role = 'student'";
+            String sql = "SELECT * FROM users u " +
+                    "JOIN taken_courses tc ON u.user_id = tc.user_id " +
+                    "JOIN course c ON tc.course_id = c.cid " +
+                    "WHERE u.role = ? AND c.course_name = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, courseName);
+            statement.setString(1, "Student");
+            statement.setString(2, courseName);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 User Student = new User();
@@ -87,7 +89,6 @@ public class UserDAO {
                 Student.setRole(resultSet.getString("role"));
                 Student.setName(resultSet.getString("name"));
                 Student.setEmail(resultSet.getString("email"));
-                Student.setCourse(resultSet.getString("course"));
                 Students.add(Student);
             }
         }
@@ -107,11 +108,28 @@ public class UserDAO {
                 user.setRole(resultSet.getString("role"));
                 user.setName(resultSet.getString("name"));
                 user.setEmail(resultSet.getString("email"));
-                user.setCourse(resultSet.getString("course"));
                 Users.add(user);
             }
         }
         return Users;
+    }
+    public boolean checkUser(String username, String email, String name){
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            String sql = "SELECT * FROM users WHERE username = ? or email = ? AND name = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, username);
+            statement.setString(2, email);
+            statement.setString(3, name);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error checking user: " + e.getMessage(), e);
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error: " + e.getMessage(), e);
+        }
+        return false;
     }
 
 }

@@ -1,3 +1,6 @@
+<%@ page import="org.example.DAO.CourseDAO" %>
+<%@ page import="java.util.List" %>
+<%@ page import="org.example.Model.Course" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,9 +71,30 @@
             color: red;
             margin-top: 10px;
         }
+        /* Manage System Button */
+        .manage-system {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+        .manage-system:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
+<a href="adminlogin.jsp" class="manage-system">Manage System</a>
 <form action="login" method="post">
     <h2>Login</h2>
     <label for="username">Username:</label>
@@ -81,7 +105,19 @@
     <select id="role" name="role">
         <option value="student">Student</option>
         <option value="professor">Professor</option>
-        <option value="admin">Admin</option>
+    </select><br>
+    <label for="course">Course:</label>
+    <select id="course" name="course">
+        <%
+            // Fetch course names from the database
+            CourseDAO courseDAO = new CourseDAO();
+            List<Course> courses = courseDAO.getAllCourses();
+            for (Course course : courses) {
+        %>
+        <option value="<%= course.getCourseName() %>"><%= course.getCourseName() %></option>
+        <%
+            }
+        %>
     </select><br>
     <button type="submit">Login</button>
     <% if (request.getParameter("error") != null) { %>
@@ -90,3 +126,4 @@
 </form>
 </body>
 </html>
+

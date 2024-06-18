@@ -23,10 +23,10 @@ public class AttendanceCheckServlet extends HttpServlet {
             throws ServletException, IOException {
         Date date = new Date(System.currentTimeMillis());
         User obj = (User)request.getSession().getAttribute("user");
-        String Course = obj.getCourse();
+        String Course = request.getParameter("course");
         System.out.println(attendanceDAO.getAttendanceByDate(Course, date));
         if(!attendanceDAO.getAttendanceByDate(Course, date).isEmpty()){
-            List<Date> dates = attendanceDAO.getAttendanceDates(obj.getCourse());
+            List<Date> dates = attendanceDAO.getAttendanceDates(Course);
             String error="Attendance already taken for today";
             request.setAttribute("dates", dates);
             request.setAttribute("error", error);

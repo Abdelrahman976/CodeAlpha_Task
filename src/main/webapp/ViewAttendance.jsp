@@ -119,11 +119,12 @@
 <div class="container">
     <!-- Back button with arrow icon -->
     <form action="back" method="post">
+        <input type="hidden" name="course" value="<%= session.getAttribute("course") %>">
         <a href="ProfDashboard.jsp" class="back-btn"><button type="submit"><i class="fas fa-arrow-left"></i></button></a>
     </form>
 
     <h3>Course Details:</h3>
-    <p><strong>Course Name:</strong> <%= obj.getCourse() %></p>
+    <p><strong>Course Name:</strong> <%= session.getAttribute("course") %></p>
     <p><strong>Professor Name:</strong> <%= obj.getName() %></p>
     <p><strong>Date:</strong> <%= request.getAttribute("selectedDate") %></p>
 
@@ -152,7 +153,7 @@
     <!-- Form to submit selected date -->
     <form id="editAttendanceForm" action="editAttendance" method="post">
         <input type="hidden" name="selectedDate" value="<%= request.getAttribute("selectedDate") %>">
-        <input type="hidden" name="course" value="<%= obj.getCourse() %>">
+        <input type="hidden" name="course" value="<%= session.getAttribute("course") %>">
         <button type="submit" class="btn">Edit Attendance</button>
     </form>
 </div>

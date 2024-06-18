@@ -1,6 +1,7 @@
 package org.example.Controller;
 
 import org.example.DAO.AttendanceDAO;
+import org.example.DAO.CourseDAO;
 import org.example.DAO.UserDAO;
 import org.example.Model.Attendance;
 import org.example.Model.User;
@@ -18,9 +19,11 @@ import java.util.List;
 
 public class SaveAttendanceServlet extends HttpServlet {
     private AttendanceDAO attendanceDAO;
+    private CourseDAO courseDAO;
 
     public void init() {
         attendanceDAO = new AttendanceDAO();
+        courseDAO = new CourseDAO();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -28,7 +31,8 @@ public class SaveAttendanceServlet extends HttpServlet {
         Enumeration<String> parameterNames = request.getParameterNames();
         System.out.println(parameterNames);
         User obj = (User)request.getSession().getAttribute("user");
-        attendanceDAO.updateAttendance1(obj.getCourse());
+        String cid= courseDAO.getCidByCname(request.getParameter("course"));
+        attendanceDAO.updateAttendance1(cid);
         while (parameterNames.hasMoreElements()) {
             String parameterName = parameterNames.nextElement();
 
@@ -38,10 +42,10 @@ public class SaveAttendanceServlet extends HttpServlet {
                 String date = request.getParameter("selectedDate");
                 System.out.println(date);
                 String status="Present";
-                attendanceDAO.updateAttendance2(Integer.parseInt(userId), Date.valueOf(date), status);
+                attendanceDAO.updateAttendance2(Integer.parseInt(userId), Date.valueOf(date), status,cid);
             }
         }
-        List<Date> dates = attendanceDAO.getAttendanceDates(obj.getCourse());
+        List<Date> dates = attendanceDAO.getAttendanceDates(request.getParameter("course"));
         request.setAttribute("dates", dates);
 
         // Forward to ProfDashboard.jsp

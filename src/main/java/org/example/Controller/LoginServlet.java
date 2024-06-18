@@ -2,6 +2,7 @@ package org.example.Controller;
 
 import org.example.DAO.AttendanceDAO;
 import org.example.DAO.UserDAO;
+import org.example.DAO.TakenCourseDAO;
 import org.example.Model.User;
 
 import javax.servlet.RequestDispatcher;
@@ -18,10 +19,12 @@ import java.util.List;
 public class LoginServlet extends HttpServlet {
     private UserDAO userDAO;
     private AttendanceDAO attendanceDAO;
+    private TakenCourseDAO takenCourseDAO;
 
     public void init() {
         userDAO = new UserDAO();
         attendanceDAO = new AttendanceDAO();
+        takenCourseDAO = new TakenCourseDAO();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -29,23 +32,22 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String role = request.getParameter("role");
+        String course=request.getParameter("course");
 
         try {
             User user = userDAO.getUser(username, password, role);
-            if (user != null) {
+            if (takenCourseDAO.isUserAssignedToCourse(username, password, role, course)) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
+                session.setAttribute("course", course);
 
                 switch (role.toLowerCase()) {
-                    case "admin":
-                        response.sendRedirect("adminDashboard.jsp");
-                        break;
                     case "student":
                         response.sendRedirect("student.jsp");
                         break;
                     case "professor":
                         // Retrieve attendance dates and set the request attribute
-                        List<Date> dates = attendanceDAO.getAttendanceDates(user.getCourse());
+                        List<Date> dates = attendanceDAO.getAttendanceDates(session.getAttribute("course").toString());
                         request.setAttribute("dates", dates);
 
                         // Forward to ProfDashboard.jsp
@@ -57,7 +59,7 @@ public class LoginServlet extends HttpServlet {
                         break;
                 }
             } else {
-                response.sendRedirect("login.jsp?error=Invalid username or password");
+                response.sendRedirect("login.jsp?error=Invalid username or password or UnAssigned Course");
             }
         } catch (Exception e) {
             e.printStackTrace();

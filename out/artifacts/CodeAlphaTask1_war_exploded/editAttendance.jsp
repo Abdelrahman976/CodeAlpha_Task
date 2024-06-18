@@ -84,11 +84,12 @@
 <div class="header">
     <div class="prof-name"><%= obj.getName() %></div>
     <div class="date"><%= request.getAttribute("selectedDate") %></div>
-    <div class="course-name"><%= obj.getCourse() %></div>
+    <div class="course-name"><%= session.getAttribute("course") %></div>
 </div>
 
 <div class="container">
     <form action="SaveAttendance" method="post">
+        <input type="hidden" name="course" value="<%= session.getAttribute("course") %>">
         <input type="hidden" name="selectedDate" value="<%= request.getAttribute("selectedDate") %>">
         <table>
             <tr>

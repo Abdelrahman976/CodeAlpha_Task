@@ -2,17 +2,14 @@ package org.example.Controller;
 
 import org.example.DAO.UserDAO;
 import org.example.Model.User;
-
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-//@WebServlet("/login")
-public class AddUserServlet extends HttpServlet {
+public class AdminVerifyServlet extends HttpServlet {
     private UserDAO userDAO;
 
     public void init() {
@@ -23,19 +20,19 @@ public class AddUserServlet extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String role = request.getParameter("role");
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        if(userDAO.checkUser(username,email,name)) {
-            response.sendRedirect("admin.jsp?error=User already exists");
-        }
-        else {
-            try {
-                userDAO.addUser(username, password, email, role, name);
+
+        try {
+            User user = userDAO.getUser(username, password, "Admin");
+            if (user != null) {
+                HttpSession session = request.getSession();
+                session.setAttribute("user", user);
                 response.sendRedirect("adminDashboard.jsp");
-            } catch (Exception e) {
-                response.sendRedirect("admin.jsp?error=An error occurred while processing your request");
+            } else {
+                response.sendRedirect("login.jsp?error=Invalid username or password");
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("login.jsp?error=An error occurred while processing your request");
         }
     }
 }

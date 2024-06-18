@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Add User</title>
+    <title>Add Course</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <style>
@@ -68,6 +68,12 @@
         button:hover {
             background-color: #0056b3;
         }
+        .note {
+            font-size: 0.8em;
+            color: #777;
+            margin-top: 5px;
+            text-align: center;
+        }
         .message {
             color: green;
             margin-top: 10px;
@@ -103,27 +109,19 @@
     <a href="adminDashboard.jsp" aria-label="Back"><i class="fas fa-arrow-left"></i></a>
 </div>
 
-<form action="addUser" method="post">
-    <h2>Add User</h2>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br>
-    <label for="role">Role:</label>
-    <select id="role" name="role" required>
-        <option value="student">Student</option>
-        <option value="professor">Professor</option>
-        <option value="admin">Admin</option>
-    </select><br>
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required><br>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br>
-    <button type="submit">Add User</button>
-    <% if (request.getParameter("error") != null) { %>
-    <p class="message"><%= request.getParameter("error") %></p>
+<form action="addCourse" method="post">
+    <h2>Add Course</h2>
+    <label for="course_id">Course ID:</label>
+    <input type="text" id="course_id" name="course_id" required>
+    <p class="note">Note: Course ID must be unique.</p>
+    <label for="course_name">Course Name:</label>
+    <input type="text" id="course_name" name="course_name" required>
+    <label for="credit_hrs">Credit Hours:</label>
+    <input type="number" id="credit_hrs" name="credit_hrs" required>
+    <button type="submit">Add Course</button>
+    <% if (request.getParameter("message") != null) { %>
+    <p class="message"><%= request.getParameter("message") %></p>
     <% } %>
-
 </form>
 </body>
 </html>

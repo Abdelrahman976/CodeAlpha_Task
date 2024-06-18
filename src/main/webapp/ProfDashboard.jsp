@@ -110,10 +110,11 @@
 </div>
 <div class="container">
     <h2>Welcome, <%= obj.getUsername() %>!</h2>
-    <h3>Course: <%= obj.getCourse() %></h3>
+    <h3>Course: <%= session.getAttribute("course") %></h3>
     <hr>
     <h3>Take Attendance:</h3>
     <form action="checkatt" method="post">
+        <input type="hidden" name="course" value="<%= session.getAttribute("course") %>">
         <button type="submit" class="button">Take Attendance for Today</button>
     </form>
     <% if (request.getAttribute("error") != null) { %>
@@ -122,6 +123,7 @@
     <hr>
     <h3>View Attendance History:</h3>
     <form action="viewAttendanceServlet" method="post">
+        <input type="hidden" name="course" value="<%= session.getAttribute("course") %>">
         <label for="selectDate">Select Date:</label>
         <select id="selectDate" name="selectedDate">
             <% List<Date> dates=(List<Date>)request.getAttribute("dates");%>

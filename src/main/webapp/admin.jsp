@@ -119,12 +119,11 @@
     <input type="text" id="name" name="name" required><br>
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" required><br>
-    <label for="course">Course:</label>
-    <input type="text" id="course" name="course" required><br>
     <button type="submit">Add User</button>
-    <% if (request.getParameter("message") != null) { %>
-    <p class="message"><%= request.getParameter("message") %></p>
+    <% if (request.getParameter("error") != null) { %>
+    <p class="message"><%= request.getParameter("error") %></p>
     <% } %>
+
 </form>
 </body>
 </html>

@@ -1,9 +1,14 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="org.example.DAO.UserDAO, org.example.DAO.CourseDAO" %>
+<%@ page import="java.util.List" %>
+<%@ page import="org.example.Model.User" %>
+<%@ page import="org.example.Model.Course" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Add User</title>
+    <title>Remove Course</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <style>
@@ -37,7 +42,7 @@
             font-weight: bold;
             color: #333;
         }
-        input, select {
+        select {
             width: calc(100% - 20px); /* Adjusted width to accommodate padding */
             padding: 10px;
             margin-top: 5px;
@@ -46,15 +51,11 @@
             font-size: 16px;
             transition: border-color 0.3s ease;
         }
-        input:focus, select:focus {
-            outline: none;
-            border-color: #007BFF;
-        }
         button {
             display: block;
             width: 100%;
             padding: 12px;
-            background-color: #007BFF;
+            background-color: #dc3545;
             color: white;
             border: none;
             border-radius: 5px;
@@ -66,7 +67,7 @@
             transition: background-color 0.3s ease;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #c82333;
         }
         .message {
             color: green;
@@ -103,27 +104,22 @@
     <a href="adminDashboard.jsp" aria-label="Back"><i class="fas fa-arrow-left"></i></a>
 </div>
 
-<form action="addUser" method="post">
-    <h2>Add User</h2>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br>
-    <label for="role">Role:</label>
-    <select id="role" name="role" required>
-        <option value="student">Student</option>
-        <option value="professor">Professor</option>
-        <option value="admin">Admin</option>
+<form action="removeCourse" method="post">
+    <h2>Remove Course</h2>
+    <label for="courseName">Select Course:</label>
+    <select id="courseName" name="courseName" required>
+        <%
+            CourseDAO courseDAO = new CourseDAO();
+            List<Course> courseNames = courseDAO.getAllCourses();
+            for (Course courseName : courseNames) {
+        %>
+        <option value="<%= courseName.getCourseName() %>"><%= courseName.getCourseName() %></option>
+        <% } %>
     </select><br>
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required><br>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br>
-    <button type="submit">Add User</button>
-    <% if (request.getParameter("error") != null) { %>
-    <p class="message"><%= request.getParameter("error") %></p>
+    <button type="submit">Delete Course</button>
+    <% if (request.getParameter("message") != null) { %>
+    <p class="message"><%= request.getParameter("message") %></p>
     <% } %>
-
 </form>
 </body>
 </html>
