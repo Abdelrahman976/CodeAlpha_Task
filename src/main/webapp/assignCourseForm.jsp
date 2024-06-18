@@ -133,10 +133,10 @@
         </select><br><br>
         <button type="submit">Assign Course</button>
         <% if (request.getAttribute("message") != null) { %>
-        <p class="error"><%= request.getAttribute("message") %></p>
+        <p class="error" style="color: green"><%= request.getAttribute("message") %></p>
         <% } %>
         <% if (request.getAttribute("error") != null) { %>
-        <p class="error"><%= request.getAttribute("error") %></p>
+        <p class="error" style="color: red"><%= request.getAttribute("error") %></p>
         <% } %>
     </form>
 </div>
