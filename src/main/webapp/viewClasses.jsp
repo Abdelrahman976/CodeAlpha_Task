@@ -173,6 +173,7 @@
             <th>User ID</th>
             <th>Username</th>
             <th>Email</th>
+            <th>Role</th>
         </tr>
         </thead>
         <tbody>
@@ -182,6 +183,7 @@
             <td><%= user.getUser_id() %></td>
             <td><%= user.getUsername() %></td>
             <td><%= user.getEmail() %></td>
+            <td><%= user.getRole() %></td>
         </tr>
         <% } %>
         </tbody>

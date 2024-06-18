@@ -15,15 +15,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>dashboardServlet</servlet-name>
-        <servlet-class>org.example.Controller.DashboardServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>dashboardServlet</servlet-name>
-        <url-pattern>/dashboard</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>adminpage</servlet-name>
         <servlet-class>org.example.Controller.AddUserServlet</servlet-class>
     </servlet>
