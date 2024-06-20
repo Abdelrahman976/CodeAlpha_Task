@@ -25,7 +25,7 @@ public class AdminFilter implements Filter {
         User user = loggedIn ? (User) session.getAttribute("user") : null;
 
         // Role-based access control
-        if (loggedIn && user.getRole().equals("Admin")) {
+        if (loggedIn && user.getRole().equalsIgnoreCase("admin")) {
             chain.doFilter(request, response);
         } else {
             res.sendRedirect(loginURL);

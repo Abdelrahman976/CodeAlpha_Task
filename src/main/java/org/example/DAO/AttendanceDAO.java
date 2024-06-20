@@ -90,13 +90,14 @@ public class AttendanceDAO {
             throw new RuntimeException("Error inserting attendance: " + e.getMessage(), e);
         }
     }
-    public void updateAttendance1(String cid) {
+    public void updateAttendance1(String cid, Date date) {
         try (Connection connection = DatabaseConnection.getConnection()) {
             String sql1="UPDATE attendance SET status = ? " +
-                    "WHERE cid =?";
+                    "WHERE cid =? AND date = ?";
             PreparedStatement statement1 = connection.prepareStatement(sql1);
             statement1.setString(1, "Absent");
             statement1.setString(2, cid);
+            statement1.setDate(3, date);
             int rowsInserted1 = statement1.executeUpdate();
             if (rowsInserted1 > 0) {
                 System.out.println("update made successfully!");

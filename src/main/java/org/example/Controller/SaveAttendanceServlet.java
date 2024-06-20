@@ -29,17 +29,17 @@ public class SaveAttendanceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Enumeration<String> parameterNames = request.getParameterNames();
+        String date = request.getParameter("selectedDate");
         System.out.println(parameterNames);
         User obj = (User)request.getSession().getAttribute("user");
         String cid= courseDAO.getCidByCname(request.getParameter("course"));
-        attendanceDAO.updateAttendance1(cid);
+        attendanceDAO.updateAttendance1(cid,Date.valueOf(date));
         while (parameterNames.hasMoreElements()) {
             String parameterName = parameterNames.nextElement();
 
             if (parameterName.startsWith("attendance")) {
                 String userId = parameterName.substring(parameterName.indexOf("_") + 1);
                 System.out.println(userId);
-                String date = request.getParameter("selectedDate");
                 System.out.println(date);
                 String status="Present";
                 attendanceDAO.updateAttendance2(Integer.parseInt(userId), Date.valueOf(date), status,cid);
