@@ -36,7 +36,7 @@ The project follows the Model-View-Controller (MVC) architecture.
 
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com/yourusername/attendance-management-system.git
+    git clone https://github.com/yourusername/CodeAlpha_Task.git
     ```
 2. **Import the project into your IDE.**
 3. **Set up the database:**
