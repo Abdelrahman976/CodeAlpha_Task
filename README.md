@@ -62,12 +62,8 @@ The project follows the Model-View-Controller (MVC) architecture.
 4. Push to the branch (`git push origin feature-branch`).
 5. Open a pull request.
 
-## License
-
-This project is licensed under the MIT License.
-
 ## Acknowledgements
 
-Thanks to all contributors and the community.
+This project was completed by me as a task during the CodeAlpha Java Programming internship.
 
 
