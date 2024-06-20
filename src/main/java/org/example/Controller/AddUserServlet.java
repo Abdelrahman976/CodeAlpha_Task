@@ -27,7 +27,7 @@ public class AddUserServlet extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         if(userDAO.checkUser(username,email,name)) {
-            response.sendRedirect("admin.jsp?error=User already exists");
+            response.sendRedirect("admin.jsp?error=Username Or Name Already Exists");
         }
         else {
             try {

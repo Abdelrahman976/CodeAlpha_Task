@@ -115,7 +115,7 @@ public class UserDAO {
     }
     public boolean checkUser(String username, String email, String name){
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String sql = "SELECT * FROM users WHERE username = ? or email = ? AND name = ?";
+            String sql = "SELECT * FROM users WHERE username = ? or email = ? or name = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, username);
             statement.setString(2, email);

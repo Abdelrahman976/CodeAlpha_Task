@@ -121,7 +121,7 @@
     <input type="email" id="email" name="email" required><br>
     <button type="submit">Add User</button>
     <% if (request.getParameter("error") != null) { %>
-    <p class="message"><%= request.getParameter("error") %></p>
+    <p class="message" style="color: red"><%= request.getParameter("error") %></p>
     <% } %>
 
 </form>
