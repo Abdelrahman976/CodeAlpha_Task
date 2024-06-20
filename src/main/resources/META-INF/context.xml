@@ -5,8 +5,8 @@
               maxTotal="20"
               maxIdle="10"
               maxWaitMillis="-1"
-              username="yourUsername"
-              password="yourPassword"
+              username="User1"
+              password="1234"
               driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
               url="jdbc:sqlserver://localhost:1433;databaseName=attendance_db"/>
 </Context>

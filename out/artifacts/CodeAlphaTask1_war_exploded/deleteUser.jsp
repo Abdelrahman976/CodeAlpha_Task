@@ -101,6 +101,9 @@
     </div>
 
     <h2>Delete Users</h2>
+    <% if (request.getAttribute("error") != null) { %>
+    <p class="error" style="color: red"><%= request.getAttribute("error") %></p>
+    <% } %>
     <form action="deleteUser" method="post">
         <table>
             <thead>
@@ -125,6 +128,7 @@
             <% } %>
             </tbody>
         </table>
+
     </form>
 </div>
 </body>
