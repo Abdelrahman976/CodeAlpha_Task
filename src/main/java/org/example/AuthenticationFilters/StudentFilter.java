@@ -25,7 +25,7 @@ public class StudentFilter implements Filter {
         User user = loggedIn ? (User) session.getAttribute("user") : null;
 
         // Role-based access control
-        if (loggedIn && user.getRole().equals("student")) {
+        if (loggedIn && user.getRole().equalsIgnoreCase("student")) {
             chain.doFilter(request, response);
         } else {
             res.sendRedirect(loginURL);

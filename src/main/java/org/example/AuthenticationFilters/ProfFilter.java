@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter("/prof.jsp")
+@WebFilter(urlPatterns = {"/prof.jsp", "/ProfDashboard.jsp", "/viewAttendance.jsp", "/editAttendance.jsp"})
 public class ProfFilter implements Filter {
 
     public void init(FilterConfig filterConfig) throws ServletException {}
@@ -24,7 +24,7 @@ public class ProfFilter implements Filter {
         User user = loggedIn ? (User) session.getAttribute("user") : null;
         System.out.println("ProfFilter: " + loggedIn + " " + user);
         // Role-based access control
-        if (loggedIn && user.getRole().equals("professor")) {
+        if (loggedIn && user.getRole().equalsIgnoreCase("professor")) {
             chain.doFilter(request, response);
         } else {
             res.sendRedirect(loginURL);

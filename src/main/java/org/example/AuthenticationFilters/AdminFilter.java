@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter("/admin.jsp")
+@WebFilter(urlPatterns = {"/admin.jsp", "/adminDashboard.jsp", "/addCourse.jsp","/assignCourseForm.jsp","/deleteUser.jsp","/removeCourse.jsp","/unassignCourse.jsp","/viewClasses.jsp"  })
 public class AdminFilter implements Filter {
 
     public void init(FilterConfig filterConfig) throws ServletException {}
@@ -19,7 +19,7 @@ public class AdminFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession(false);
-        String loginURL = req.getContextPath() + "/login.jsp";
+        String loginURL = req.getContextPath() + "/adminlogin.jsp";
 
         boolean loggedIn = session != null && session.getAttribute("user") != null;
         User user = loggedIn ? (User) session.getAttribute("user") : null;
